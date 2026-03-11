@@ -1,0 +1,140 @@
+{
+  "version": "2.0",
+  "id": "ghoul",
+  "aliases": ["ghoul", "undead_ghoul", "scourge_ghoul"],
+  "display_name": "Ghoul",
+  "alternative_names": ["Undead Ghoul", "Scourge Ghoul"],
+  "size": "medium",
+  "category": "undead",
+  "environment_tags": ["undead", "crypt", "graveyard", "ruin", "plagueland", "scourge", "necromantic"],
+  "scene_use_summary": "A common undead shock troop: hunger-driven, aggressive, dangerous in packs, strongest near corpses, and most at home in crypts, graveyards, ruins, and Scourge-touched regions.",
+
+  "lore": {
+    "description": "Ghouls are undead shock troops of the Scourge: ravenous cannibals that revel in combat with the living. Once townsfolk, they have made the final transition into undeath and replenish their strength by devouring fallen flesh—friend or foe. Necromancers and death knights raise and direct ghouls; some enhanced variants have been hardened with saronite.",
+    "faction": ["Scourge", "Knights of the Ebon Blade (as summons)", "Forsaken (historical contexts)"],
+    "distribution": ["Eastern Plaguelands", "Western Plaguelands", "Eversong Forest", "Ghostlands", "Silverpine Forest", "Duskwood", "Northrend"],
+    "notes": "Most ghouls are mindless; rare individuals like Horgus retained limited intelligence. They can speak in bestial, phlegmy voices driven by hunger."
+  },
+
+  "habitats": ["crypts", "graveyards", "ruins", "plaguelands", "necromancer camps"],
+  "times": ["night", "dusk", "fog"],
+  "behaviors": ["cannibalize_corpses", "swarm_assault", "overwhelm_numbers", "obey_necromancer_command"],
+  "aggression": "aggressive",
+  "senses": ["scent_of_flesh", "low_light_vision", "pack_awareness"],
+  "sounds": ["wet_scraping_footsteps", "growls", "chittering", "phlegmy_mutters"],
+  "rarity": "common",
+  "strength": 3,
+  "threat_level": 5,
+  "encounter_difficulty": "moderate",
+
+  "combat": {
+    "tactics": ["swarm_flank", "corpse_feeding_regeneration", "pressured_overwhelm", "hit_until_dead"],
+    "damage_types": ["claws", "bite", "rending"],
+    "weaknesses": ["holy_magic", "fire", "discipline_formations"],
+    "resistances": ["fearless_advances", "pain_tolerance"],
+    "immunities": []
+  },
+
+  "combat_notes": {
+    "regeneration_cannibalize": {
+      "condition": "Near fresh corpses or fallen combatants",
+      "effect": "Brief regeneration while devouring flesh",
+      "tactical_note": "Deny corpses; maintain formation and ranged pressure"
+    },
+    "pack_dynamics": {
+      "trigger": "Numbers advantage and confined terrain",
+      "effect": "Higher threat via surround and pile-on tactics",
+      "combat_impact": "Break line-of-sight; avoid chokepoints they control"
+    }
+  },
+
+  "special_abilities": [
+    {
+      "name": "Cannibalize",
+      "description": "Devours fallen flesh to replenish strength",
+      "effect": "Short burst of vitality; brief pause in assault"
+    },
+    {
+      "name": "Rotting Bite",
+      "description": "Festering bite that weakens targets",
+      "effect": "Saps stamina; risks infection-themed debuffs (flavor)"
+    },
+    {
+      "name": "Corpse Surge",
+      "description": "Clambers over the fallen to reach front-line targets",
+      "effect": "Ignores typical obstacles formed by bodies"
+    }
+  ],
+
+  "variants": [
+    {
+      "name": "Mindless Ghoul",
+      "description": "Baseline shock troop with minimal cunning",
+      "strength_modifier": 0,
+      "threat_modifier": 0
+    },
+    {
+      "name": "Saronite-Enhanced Ghoul",
+      "description": "Reinforced variant from Northrend Fleshwerks",
+      "strength_modifier": 1,
+      "threat_modifier": 1
+    }
+  ],
+
+  "combat_abilities": [
+    {
+      "name": "Rend",
+      "description": "Claws tear flesh with brute strength",
+      "range": "melee",
+      "damage_type": "rending"
+    },
+    {
+      "name": "Gnash",
+      "description": "Bite with jagged teeth",
+      "range": "melee",
+      "damage_type": "bite"
+    }
+  ],
+
+  "encounter_styles": [
+    "Graveyard swarm; press flanks and pile onto isolated targets.",
+    "Crypt ambush; emerge from shadows with wet scraping advances."
+  ],
+
+  "signs": "Wet scraping footsteps, sour rot-stench, torn earth, distant chittering.",
+  "threat": "Medium. Hunger-driven, relentless; dangerous in packs and near corpses.",
+
+  "anti_godmod": {
+    "behavioral_constraints": {
+      "undead_nature": "Mindless or minimally intelligent; cannot negotiate or be swayed by appeals.",
+      "command_dependence": "Often directed by necromancers or death knights; obeys simple commands.",
+      "cannibalize_compulsion": "Will feed on fallen flesh to regain strength when possible.",
+      "pack_behavior": "Prefers numbers and swarming; limited tactical sophistication.",
+      "territorial_range": "Concentrations around Scourge activity, crypts, and plagued regions."
+    },
+    "combat_limitations": {
+      "no_finesse": "Telegraphed lunges; crude attacks; vulnerable to disciplined counters.",
+      "holy_fire_weakness": "Holy and fire effects break morale and cause severe damage.",
+      "obstacle_management": "Struggles against sustained light, consecrated ground, and organized shield-lines."
+    },
+    "narrative_requirements": {
+      "scourge_context": "Presence implies necromantic influence or Scourge remnants.",
+      "corpse_denial": "Prevent regeneration by clearing or sanctifying the fallen.",
+      "environmental_logic": "Common in Plaguelands, Northrend, and Scourge-touched zones."
+    }
+  },
+
+  "usage_notes": {
+    "creature_embed_rule": "Use creature context as pressure, threat, sensory cue, or encounter logic. Do not force combat unless the player's scene implies escalation.",
+    "default_role": "supporting threat layer",
+    "max_presence_lines": 2,
+    "threat_use_rule": "Prefer signs, sounds, movement, and pressure before direct attack unless the scene has already escalated.",
+    "memory_rule": "Respect active place, recent scene memory, and current encounter continuity when using this creature.",
+    "npc_interaction_rule": "Creature behavior must remain consistent with habitats, times, anti_godmod rules, and Scourge/necromantic context."
+  },
+
+  "sources": {
+    "primary": "Wowpedia — Ghoul",
+    "references": ["Plaguelands sightings", "Northrend Fleshwerks", "Scourge shock troops"]
+  }
+}

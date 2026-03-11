@@ -1,0 +1,95 @@
+{
+  "id": "silvermoon",
+  "aliases": ["silvermoon", "silvermoon_city", "smc"],
+  "display_name": "Silvermoon City",
+  "type": "capital",
+  "region": "Northern Eversong Woods / Quel'Thalas / Eastern Kingdoms",
+  "tone": ["radiant", "proud", "wounded", "watchful"],
+
+  "long_description": "The crown jewel of Quel'Thalas and capital of the blood elves, Silvermoon is a city of radiant stone, crimson tapestries, and arcane precision. Its spires and thoroughfares still shine in stark contrast to the Dead Scar—an enduring wound carved by Arthas during the Third War in his march on the Sunwell. Though nearly destroyed, Silvermoon has returned to life; the Sunwell’s rebirth lifted spirits and renewed purpose, even as parts of the western city remain scarred and partially ruined. Perpetual spring clings to the enchanted forests beyond, and the city’s beauty is deliberate—crafted, maintained, and defended.",
+
+  "default_scene": "Enchanted lanterns hum with steady light as crimson banners ripple along white stone, and the air tastes faintly of ozone and perfume.",
+
+  "sublocations": [
+    { "id": "sunfury_spire", "display_name": "Sunfury Spire" },
+    { "id": "walk_of_elders", "display_name": "Walk of Elders" },
+    { "id": "murder_row", "display_name": "Murder Row" },
+    { "id": "royal_exchange", "display_name": "Royal Exchange" },
+    { "id": "bazaar", "display_name": "The Bazaar" },
+    { "id": "the_dead_scar_edge", "display_name": "Edge of the Dead Scar" }
+  ],
+
+  "spice_lines": [
+    "Arcane light does not flicker here; it hums, steady as a held breath.",
+    "Crimson tapestry snaps once and settles with practiced elegance.",
+    "Broom-charms sweep with tireless patience, as if the city refuses dust on principle.",
+    "A runestone’s geometry catches the eye, then insists you look away.",
+    "Perfume and polished stone hide a trace of old ash beneath.",
+    "Near the scar, even birdsong seems to choose its notes carefully."
+  ],
+
+  "ambient_profiles": [
+    "Footsteps glide over immaculate paving; conversation stays measured and low.",
+    "A courier rune flares briefly above a doorway, then fades to nothing.",
+    "Crystal lanterns cast clean shadows that do not waver with wind.",
+    "A distant chime answers another—signals passing through the city’s wards.",
+    "Silk rustles; jewelry clicks once; a glance lingers, then moves on.",
+    "In a fountain bowl, water holds a faint shimmer of spellcraft.",
+    "A mage’s gesture seals a parcel; wax is replaced by light.",
+    "A patrol turns the corner without hurry; their discipline is the announcement.",
+    "From the north, the forest air carries perpetual spring—green and impossibly fresh.",
+    "Toward the Dead Scar, the air cools and tastes wrong, as if the world remembers."
+  ],
+
+  "event_overlays": [
+    { "id": "bazaar_bloom", "text": "The Bazaar brightens with trade; jewel-toned fabrics and arcane trinkets change hands with careful smiles." },
+    { "id": "ward_renewal", "text": "Wards are checked and renewed; runes flare in sequence, then settle into quiet geometry." },
+    { "id": "diplomatic_arrival", "text": "A formal escort moves through the avenue; posture is perfect, greetings precise, scrutiny constant." },
+    { "id": "scar_wind", "text": "A cold draft creeps from the Dead Scar; lantern light stays steady, but conversation thins." },
+    { "id": "sunwell_afterglow", "text": "A faint warmth rides the air—subtle, restorative—like hope made physical and held in reserve." },
+    { "id": "night_patrols", "text": "Night patrols double at key gates; the city’s beauty becomes sharper, more guarded." },
+    { "id": "reconstruction", "text": "Fresh stonework bites bright against older scars; repairs continue with patient, stubborn pride." }
+  ],
+
+  "micro_encounters": [
+    "A street-sweeping charm pauses at a fallen petal, then resumes with offended precision.",
+    "A clerk’s quill scratches, stops, and re-starts—ink corrected without comment.",
+    "A lantern crystal rings once, as if acknowledging a passing ward-key.",
+    "A passerby’s gaze flicks to the horizon—toward the scar—then returns to the present.",
+    "A courier swaps a sealed note for a coin without either hand lingering.",
+    "A banner pin loosens; it is fixed immediately, as if flaws are unthinkable.",
+    "A fountain’s shimmer resolves into a symbol, then disappears when stared at.",
+    "A patrol’s boots do not scuff; even the sound of movement is controlled.",
+    "A faint scent of ozone catches on the wind and is gone a heartbeat later.",
+    "A child’s laughter echoes once—then quiets under a guardian’s gentle hand."
+  ],
+
+  "monster_table": [
+    { "id": "mana_wraith", "weight": 2, "when": { "habitat": "scar|ruins|wardline", "time": "night|dusk", "overlay": ["scar_wind","ward_renewal"] } },
+    { "id": "ghoul", "weight": 1, "when": { "habitat": "scar|ruins", "time": "night|fog", "overlay": ["scar_wind"] } },
+    { "id": "wretched_stalker", "weight": 2, "when": { "habitat": "ruins|scar|outer_walks", "time": "night|dusk", "overlay": ["night_patrols","scar_wind"] } },
+    { "id": "arcane_anomaly", "weight": 2, "when": { "habitat": "wardline|spire|exchange", "time": "any", "overlay": ["ward_renewal","sunwell_afterglow"] } },
+    { "id": "scar_abomination", "weight": 1, "when": { "habitat": "scar|ruins", "time": "night", "overlay": ["scar_wind","after_attack"] } },
+    { "id": "darkfallen_infiltrator", "weight": 1, "when": { "habitat": "murder_row|ruins|outer_walks", "time": "night|dusk", "overlay": ["night_patrols","diplomatic_arrival"] } }
+  ],
+
+  "wildlife_table": [
+    { "id": "songbirds", "weight": 6, "when": { "time": "day|dawn" } },
+    { "id": "forest_stags", "weight": 2, "when": { "time": "dawn|dusk" } },
+    { "id": "butterflies", "weight": 5, "when": { "time": "day" } }
+  ],
+
+  "home_npcs": ["silvermoon_guard"],
+  "npc_whitelist": ["silvermoon_guard"],
+
+  "usage_notes": {
+    "per_turn_place_budget": "1 default_scene line + 1 random ambient + up to 1 overlay sentence",
+    "spice_probability": 0.2,
+    "micro_encounter_probability": 0.12,
+    "ambient_no_repeat_last": 5,
+    "overlay_cap": 2,
+    "narration_style": "Always third-person. Named replies require an active !char; otherwise respond as the world.",
+    "player_embed_rule": "Embed only what the player wrote (third-person action + quoted speech). Do not invent player actions, thoughts, or consent.",
+    "canon_npc_rule": "If NPC is in home_npcs, permit a one-line local presence as flavor only; named speech requires !char."
+  }
+}

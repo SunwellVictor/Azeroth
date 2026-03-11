@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["id"],
+  "anyOf": [
+    { "required": ["name"] },
+    { "required": ["display_name"] }
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "display_name": { "type": "string" },
+    "aliases": { "type": "array", "items": { "type": "string" } },
+    "alternative_names": { "type": "array", "items": { "type": "string" } },
+    "version": { "type": "string" },
+    "size": { "type": "string" },
+    "category": { "type": "string" },
+    "environment_tags": { "type": "array", "items": { "type": "string" } },
+    "scene_use_summary": { "type": "string" },
+
+    "lore": { "type": "object" },
+    "habitats": { "type": "array", "items": { "type": "string" } },
+    "times": { "type": "array", "items": { "type": "string" } },
+    "behaviors": { "type": "array", "items": { "type": "string" } },
+    "aggression": { "type": "string" },
+    "senses": { "type": "array", "items": { "type": "string" } },
+    "sounds": { "type": "array", "items": { "type": "string" } },
+    "rarity": { "type": "string" },
+    "strength": { "type": "number" },
+    "threat_level": { "type": ["number", "string"] },
+    "encounter_difficulty": { "type": "string" },
+
+    "combat": { "type": "object" },
+    "combat_notes": { "type": "object" },
+    "special_abilities": { "type": "array", "items": { "type": "object" } },
+    "variants": { "type": "array", "items": { "type": "object" } },
+    "combat_abilities": { "type": "array", "items": { "type": "object" } },
+    "encounter_styles": { "type": "array", "items": { "type": "string" } },
+
+    "threat": { "type": "string" },
+    "signs": { "type": "string" },
+    "usage_notes": { "type": "object" },
+    "anti_godmod": { "type": "object" },
+    "sources": { "type": "object" },
+    "notes": { "type": "string" }
+  }
+}

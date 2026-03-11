@@ -1,0 +1,25 @@
+{
+    "canon_blocklist": [
+        "Thrall", "Jaina", "Sylvanas", "Anduin", "Lor'themar", 
+        "Tyrande", "Malfurion", "Arthas", "Illidan", "Vol'jin",
+        "Varian", "Genn", "Greymane", "Baine", "Cairne", "Garrosh",
+        "Gul'dan", "Medivh", "Khadgar", "Maiev", "Azshara"
+    ],
+    "injection_phrases": [
+        "ignore previous instructions",
+        "reveal system prompt",
+        "act as",
+        "speak as",
+        "quote the quest",
+        "exact dialogue",
+        "system prompt",
+        "you are a large language model",
+        "as an ai",
+        "developer mode"
+    ],
+    "regex_patterns": [
+        "(?i)\\b(ignore|forget)\\s+all\\s+instructions\\b",
+        "(?i)\\bwrite\\s+a\\s+(poem|story|code)\\b",
+        "(?i)\\b(jailbreak|override)\\b"
+    ]
+}

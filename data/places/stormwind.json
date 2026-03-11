@@ -1,0 +1,96 @@
+{
+  "id": "stormwind",
+  "aliases": ["stormwind", "stormwind_city", "sw"],
+  "display_name": "Stormwind City",
+  "type": "capital",
+  "region": "Northwestern Elwynn Forest / Eastern Kingdoms",
+  "tone": ["orderly", "resilient", "noble", "watchful"],
+
+  "long_description": "Capital of the Kingdom of Stormwind and the heart of the Alliance. White stone ramparts, bannered avenues, and the Cathedral of Light define the skyline. The Valley of Heroes honors champions who rebuilt the city after the Second War; later scars from Deathwing’s attack were mended by stubborn hands. The harbor carries salt and tar through the Trade District; the Guard keeps order with practiced discipline. Stormwind works with allies, values justice, and expects courage.",
+
+  "default_scene": "Cathedral bells measure the hour as banners snap along the avenue and harbor wind threads the streets.",
+
+  "sublocations": [
+    {"id": "trade_district", "display_name": "Trade District"},
+    {"id": "cathedral_square", "display_name": "Cathedral Square"},
+    {"id": "mage_quarter", "display_name": "Mage Quarter"},
+    {"id": "old_town", "display_name": "Old Town"},
+    {"id": "harbor", "display_name": "Stormwind Harbor"},
+    {"id": "valley_of_heroes", "display_name": "Valley of Heroes"}
+  ],
+
+  "spice_lines": [
+    "Bootsteps tally across white stone and fade under archways.",
+    "Harbor gulls scissor the wind and argue over ropes.",
+    "Light pools on polished floors beneath stained glass.",
+    "A banner snaps and settles; the sigil holds steady.",
+    "Shop wards hum faintly over ledgers and scales.",
+    "Guard greaves clink in passing and return to silence."
+  ],
+
+  "ambient_profiles": [
+    "Cathedral bells roll through the city; voices soften on the last toll.",
+    "Harbor wind carries salt and tar; rigging ticks against masts.",
+    "The Valley of Heroes hums with quiet footfall and distant talk.",
+    "Lanterns are trimmed along the canals; wick smoke threads upward.",
+    "A farrier hammers three beats, rests, and starts again.",
+    "A scribe shakes sand from a page and blows the rest away.",
+    "A fountain hushes in the square; coins flash and vanish.",
+    "A cart wheel bumps the curb and rights itself with a groan.",
+    "A priest’s cadence crosses the plaza and disappears under an arch.",
+    "Stone cools under shade; warmth holds to sunlit steps."
+  ],
+
+  "event_overlays": [
+    { "id": "market_day", "text": "Stalls bloom along the Trade District; scales clink and vendors call." },
+    { "id": "cathedral_mass", "text": "Candles burn in ranks; hymns swell and ebb beneath the vault." },
+    { "id": "harbor_squall", "text": "Rigging snaps tight; rain beads on planks and drains fast to canals." },
+    { "id": "parade", "text": "Banners advance; drums thud measured; children run ahead and are recalled." },
+    { "id": "night_watch", "text": "Torches mark patrol routes; alley talk quiets when greaves approach." },
+    { "id": "repairs", "text": "New stone is set bright against old; chisels bite and brushes dust joints." },
+    { "id": "after_attack", "text": "Cracks web a section of wall; ropes and pulleys scaffold fresh patching." }
+  ],
+
+  "micro_encounters": [
+    "A pigeon blinks from a cornice and drops to the fountain lip.",
+    "A child chases a ribbon into the square and skids to a stop.",
+    "A candle gutters; wax tears down brass and is wiped away.",
+    "A shop ward flickers, is tapped, and steadies.",
+    "Two guards trade a nod at the intersection and pass without words.",
+    "A ledger snaps shut; the ink dries in a clean line.",
+    "A banner nail squeaks; a hammer answers once.",
+    "A stray cat threads between boots and claims a step.",
+    "A coin rolls, finds a crack, and is retrieved with a grin.",
+    "A gull drops a shell; it skitters and lies quiet."
+  ],
+
+  "monster_table": [
+    { "id": "cutpurse", "weight": 3, "when": { "habitat": "market|alley|trade_district", "time": "night|dusk" } },
+    { "id": "defias_rogue", "weight": 2, "when": { "habitat": "alley|warehouse|old_town|harbor", "time": "night", "overlay": ["night_watch","repairs"] } },
+    { "id": "defias_smuggler", "weight": 2, "when": { "habitat": "harbor|warehouse", "time": "night|dusk", "overlay": ["harbor_squall","night_watch"] } },
+    { "id": "dockside_thug", "weight": 2, "when": { "habitat": "harbor|alley|market", "time": "night|dusk" } },
+    { "id": "wolf", "weight": 2, "when": { "habitat": "outskirts|road|gate", "time": "night|dusk", "overlay": ["after_attack"] } },
+    { "id": "kobold_tunnelrunner", "weight": 1, "when": { "habitat": "warehouse|outskirts|repair_site", "time": "night|dusk", "overlay": ["repairs","after_attack"] } }
+  ],
+
+  "wildlife_table": [
+    { "id": "pigeons", "weight": 8, "when": { "time": "any" } },
+    { "id": "cats", "weight": 5, "when": { "time": "any" } },
+    { "id": "rats", "weight": 4, "when": { "time": "night|dusk" } },
+    { "id": "harbor_gulls", "weight": 7, "when": { "time": "day|dusk" } }
+  ],
+
+  "home_npcs": ["stormwind_guard"],
+  "npc_whitelist": ["stormwind_guard"],
+
+  "usage_notes": {
+    "per_turn_place_budget": "1 default_scene line + 1 random ambient + up to 1 overlay sentence",
+    "spice_probability": 0.2,
+    "micro_encounter_probability": 0.12,
+    "ambient_no_repeat_last": 5,
+    "overlay_cap": 2,
+    "narration_style": "Always third-person. Named replies require an active !char; otherwise respond as the world.",
+    "player_embed_rule": "Embed only what the player wrote (third-person action + quoted speech). Do not invent player actions, thoughts, or consent.",
+    "canon_npc_rule": "If NPC is in home_npcs, permit a one-line local presence as flavor only; named speech requires !char."
+  }
+}

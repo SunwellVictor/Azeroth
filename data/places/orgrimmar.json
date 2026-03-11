@@ -1,0 +1,95 @@
+{
+  "id": "orgrimmar",
+  "aliases": ["orgrimmar", "org", "orgrimmar_city"],
+  "display_name": "Orgrimmar",
+  "type": "capital",
+  "region": "Northern Durotar / Kalimdor",
+  "tone": ["harsh", "martial", "enduring", "communal", "watchful"],
+
+  "long_description": "Built within the valleys and caverns of northern Durotar, Orgrimmar is the capital of the orcs and seat of the Horde’s governance. Founded by Thrall and named in honor of Orgrim Doomhammer, the city is a fortified complex of red stone, ironwork, and massive gates set against a mountainous back wall, with portions carved directly into rock. It is a warrior city: training grounds and sparring rings are as common as markets, and elders pass shamanic wisdom alongside the clang of forges. Orgrimmar is a hub for many Horde peoples, a place of loud voices, direct rules, and hard-won survival.",
+
+  "default_scene": "Heat shimmers above red stone as forge smoke threads the canyon, drums thud somewhere deep, and the gates stand heavy with iron certainty.",
+
+  "sublocations": [
+    { "id": "valley_of_strength", "display_name": "Valley of Strength" },
+    { "id": "valley_of_honor", "display_name": "Valley of Honor" },
+    { "id": "valley_of_wisdom", "display_name": "Valley of Wisdom" },
+    { "id": "valley_of_spirits", "display_name": "Valley of Spirits" },
+    { "id": "the_drag", "display_name": "The Drag" },
+    { "id": "main_gates", "display_name": "Main Gates" }
+  ],
+
+  "spice_lines": [
+    "Hammer strikes count time as reliably as any clock.",
+    "Dust rides the wind and settles into every seam of stone.",
+    "Spiked silhouettes cut the sky like teeth along the ridge.",
+    "Drums do not decorate silence here; they replace it.",
+    "A shaman’s totem smoke curls steady even in harsh gusts.",
+    "The city smells of iron, sweat, leather, and hot rock."
+  ],
+
+  "ambient_profiles": [
+    "A forge door opens; white heat spills, then is swallowed by shadow.",
+    "A warhorn tests the air once and is quieted before it becomes a challenge.",
+    "Sparring shouts rise, clash, and end with a laugh that still sounds like teeth.",
+    "Water is hauled in sloshing barrels; every drop is treated like coin.",
+    "A banner snaps hard and holds; the knot is checked twice.",
+    "Boots scrape grit from stone; footsteps do not apologize for volume.",
+    "An elder’s voice carries over drums, steady as a lesson learned the hard way.",
+    "A gate chain shifts; iron answers with a deep, patient groan.",
+    "Cooking smoke and spice drift from a stall and vanish into forge haze.",
+    "A lizard skitters across warm stone and disappears into a crack."
+  ],
+
+  "event_overlays": [
+    { "id": "training_cycle", "text": "Sparring rings fill; bruises are earned and treated like proof of effort." },
+    { "id": "council_session", "text": "Messengers move with urgency; voices sharpen near the halls of authority." },
+    { "id": "forge_surge", "text": "Forges burn hotter than usual; iron song and smoke thicken the air." },
+    { "id": "gate_inspection", "text": "Chains are tested; hinges oiled; patrol routes tighten around the walls." },
+    { "id": "dust_storm", "text": "Wind drives grit through the canyon; cloth wraps rise, and eyes narrow." },
+    { "id": "shamanic_ritual", "text": "Totems ring a circle; the air cools briefly as the elements are addressed with respect." },
+    { "id": "after_attack", "text": "Scorch marks cling to stone; repairs begin immediately, without ceremony." }
+  ],
+
+  "micro_encounters": [
+    "A whetstone rasps; the blade edge catches sun once, then disappears.",
+    "A cook flips skewers; fat sizzles and pops like tiny drumbeats.",
+    "A patrol pauses at a corner, scans rooftops, and continues without comment.",
+    "A child imitates a sparring stance and is corrected gently, firmly.",
+    "A goblin vendor snaps a ledger shut and grins like it’s a challenge.",
+    "A totem charm clicks against bone beads; the sound is oddly comforting.",
+    "A bucket tips; water spills; three hands move instantly to save what they can.",
+    "A gate guard spits dust, adjusts a strap, and nods once.",
+    "A banner pin loosens; it is hammered tight with one efficient strike.",
+    "A drum pattern changes; conversations shift with it."
+  ],
+
+  "monster_table": [
+    { "id": "razormane_raider", "weight": 3, "when": { "habitat": "gates|outskirts|barrens_road", "time": "any", "overlay": ["after_attack","gate_inspection"] } },
+    { "id": "razormane_scout", "weight": 2, "when": { "habitat": "outskirts|watch_post|gates", "time": "night|dusk", "overlay": ["gate_inspection"] } },
+    { "id": "harpy_scout", "weight": 2, "when": { "habitat": "ridge|canyon", "time": "day|dusk", "overlay": ["dust_storm"] } },
+    { "id": "kolkar_centaur_scout", "weight": 1, "when": { "habitat": "barrens_road|outskirts", "time": "day|dusk", "overlay": ["after_attack"] } },
+    { "id": "dust_wolf", "weight": 3, "when": { "habitat": "canyon|scrub|outskirts", "time": "night|dusk" } },
+    { "id": "durotar_scorpid", "weight": 2, "when": { "habitat": "rock|scrub|outskirts", "time": "any" } }
+  ],
+
+  "wildlife_table": [
+    { "id": "scavenger_birds", "weight": 5, "when": { "time": "day|dusk" } },
+    { "id": "canyon_lizards", "weight": 6, "when": { "time": "any" } },
+    { "id": "dust_rats", "weight": 3, "when": { "time": "night|dusk" } }
+  ],
+
+  "home_npcs": ["orgrimmar_guard"],
+  "npc_whitelist": ["orgrimmar_guard"],
+
+  "usage_notes": {
+    "per_turn_place_budget": "1 default_scene line + 1 random ambient + up to 1 overlay sentence",
+    "spice_probability": 0.2,
+    "micro_encounter_probability": 0.12,
+    "ambient_no_repeat_last": 5,
+    "overlay_cap": 2,
+    "narration_style": "Always third-person. Named replies require an active !char; otherwise respond as the world.",
+    "player_embed_rule": "Embed only what the player wrote (third-person action + quoted speech). Do not invent player actions, thoughts, or consent.",
+    "canon_npc_rule": "If NPC is in home_npcs, permit a one-line local presence as flavor only; named speech requires !char."
+  }
+}

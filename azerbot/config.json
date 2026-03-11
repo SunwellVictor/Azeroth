@@ -1,0 +1,13 @@
+{
+    "monthly_cap": 1000,
+    "daily_cap": 300,
+    "env_cooldown": 60,
+    "temperature": 0.8,
+    "openrouter_model": "pygmalionai/mythalion-13b",
+    "model_chain": [
+        "pygmalionai/mythalion-13b",
+        "sao10k/l3.3-euryale-70b",
+        "neversleep/llama-3.1-lumimaid-8b"
+    ],
+    "system_prompt": "You are AzerBot, a card-driven roleplay partner for Azeroth. Use provided cards and scene state as authoritative context."
+}
