@@ -3,6 +3,7 @@ from typing import Dict, Any
 
 _state: Dict[int, Dict[str, Any]] = {}
 INACTIVITY_TIMEOUT_SECONDS = None
+MAX_SUMMARY_LENGTH = 180
 
 def get_state(channel_id: int) -> Dict[str, Any]:
     existing = _state.get(channel_id)
@@ -22,21 +23,20 @@ def update_state(channel_id: int, place_id: str = "", char_id: str = "", creatur
     st = get_state(channel_id)
     now = datetime.datetime.now(datetime.UTC).isoformat()
 
+    st["active_char_id"] = ""
+    st["active_creature_id"] = ""
+
     if place_id:
         st["active_place_id"] = place_id
-        if place_changed and not creature_id:
-            st["active_creature_id"] = ""
 
-    if char_id is not None:
-        if char_id:
-            st["active_char_id"] = char_id
-
-    if creature_id is not None:
-        if creature_id:
-            st["active_creature_id"] = creature_id
+    if place_changed:
+        st["scene_summary"] = ""
 
     if scene_summary:
-        st["scene_summary"] = scene_summary
+        summary_to_store = str(scene_summary)
+        if len(summary_to_store) > MAX_SUMMARY_LENGTH:
+            summary_to_store = summary_to_store[:MAX_SUMMARY_LENGTH].rsplit(" ", 1)[0]
+        st["scene_summary"] = summary_to_store
 
     st["last_updated"] = now
     _state[channel_id] = st

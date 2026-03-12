@@ -11,6 +11,8 @@ azerbot/.env
 
 # Runtime / generated
 azerbot/audit_log.jsonl
+azerbot/debug_log.jsonl
+azerbot/error_log.jsonl
 azerbot/usage_state.json
 /.remote/
 

@@ -182,3 +182,139 @@ def log_audit_event(user_id: int, channel_id: int, command_type: str, distortion
             f.write(json.dumps(event) + "\n")
     except Exception as e:
         print(f"Failed to write audit log: {e}")
+
+def log_audit_event_ex(user_id: int, channel_id: int, command_type: str, details: Dict[str, Any]):
+    event = {
+        "timestamp": str(datetime.datetime.now()),
+        "user_id": user_id,
+        "channel_id": channel_id,
+        "command_type": command_type,
+        "details": details or {}
+    }
+    log_path = os.path.join(BASE_DIR, "audit_log.jsonl")
+    try:
+        with open(log_path, 'a', encoding='utf-8') as f:
+            f.write(json.dumps(event) + "\n")
+    except Exception as e:
+        print(f"Failed to write audit log: {e}")
+def log_error_event(user_id: int, channel_id: int, directives: Dict[str, Any], stage: str, exc: Exception):
+    event = {
+        "timestamp": str(datetime.datetime.now()),
+        "user_id": user_id,
+        "channel_id": channel_id,
+        "stage": stage,
+        "directives": directives,
+        "exception_class": exc.__class__.__name__,
+        "exception_message": str(exc)
+    }
+    log_path = os.path.join(BASE_DIR, "error_log.jsonl")
+    try:
+        with open(log_path, 'a', encoding='utf-8') as f:
+            f.write(json.dumps(event) + "\n")
+    except Exception as e:
+        print(f"Failed to write error log: {e}")
+
+def log_debug_event(event: Dict[str, Any]):
+    payload = dict(event or {})
+    payload.setdefault("timestamp", str(datetime.datetime.now()))
+    payload.setdefault("event_type", "debug")
+    log_path = os.path.join(BASE_DIR, "debug_log.jsonl")
+    try:
+        with open(log_path, 'a', encoding='utf-8') as f:
+            f.write(json.dumps(payload) + "\n")
+    except Exception as e:
+        print(f"Failed to write debug log: {e}")
+
+def _strip_quoted_dialogue(text: str) -> str:
+    s = str(text or "")
+    s = re.sub(r"\"[^\"]*\"", "", s, flags=re.DOTALL)
+    s = re.sub(r"“[^”]*”", "", s, flags=re.DOTALL)
+    return s
+
+def third_person_violations(text: str) -> List[str]:
+    body = _strip_quoted_dialogue(text).lower()
+    forbidden = [
+        r"\bi\b",
+        r"\bme\b",
+        r"\bmy\b",
+        r"\bmine\b",
+        r"\bmyself\b",
+        r"\bwe\b",
+        r"\bus\b",
+        r"\bour\b",
+        r"\bours\b",
+        r"\bourselves\b",
+        r"\byou\b",
+        r"\byour\b",
+        r"\byours\b",
+        r"\byourself\b",
+        r"\byourselves\b",
+        r"\bi['’]m\b",
+        r"\bi['’]ve\b",
+        r"\bi['’]d\b",
+        r"\bi['’]ll\b",
+        r"\bwe['’]re\b",
+        r"\bwe['’]ve\b",
+        r"\bwe['’]d\b",
+        r"\bwe['’]ll\b",
+        r"\byou['’]re\b",
+        r"\byou['’]ve\b",
+        r"\byou['’]d\b",
+        r"\byou['’]ll\b",
+    ]
+    hits: List[str] = []
+    for pat in forbidden:
+        m = re.search(pat, body)
+        if m:
+            hits.append(m.group(0))
+    return sorted(set(hits))
+
+def is_strict_third_person(text: str) -> bool:
+    return len(third_person_violations(text)) == 0
+
+def split_for_discord(text: str, limit: int = 1900) -> List[str]:
+    raw = str(text or "").strip()
+    if not raw:
+        return [""]
+    if len(raw) <= limit:
+        return [raw]
+
+    chunks: List[str] = []
+    remaining = raw
+
+    while remaining:
+        if len(remaining) <= limit:
+            chunks.append(remaining.strip())
+            break
+
+        window = remaining[:limit + 1]
+
+        cut = window.rfind("\n\n")
+        if cut > 0:
+            cut = cut + 2
+        else:
+            sentence_cut = -1
+            for m in re.finditer(r"[.!?](?:\"|'|”|’)?(?=\s)", window):
+                sentence_cut = m.end()
+            if sentence_cut > 0:
+                cut = sentence_cut
+            else:
+                ws_cut = -1
+                for m in re.finditer(r"\s+", window):
+                    ws_cut = m.start()
+                cut = ws_cut if ws_cut > 0 else limit
+
+        chunk_raw = remaining[:cut]
+        chunk = chunk_raw.strip()
+        if not chunk:
+            chunk_raw = remaining[:limit]
+            chunk = chunk_raw.strip()
+            cut = len(chunk_raw)
+
+        chunks.append(chunk)
+        remaining = remaining[cut:].lstrip()
+
+    safe = [c for c in chunks if c]
+    if not safe:
+        return [raw[:limit]]
+    return safe

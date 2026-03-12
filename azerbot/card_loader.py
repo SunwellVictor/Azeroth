@@ -1,6 +1,7 @@
 import os
 import json
 import logging
+import re
 from typing import Dict, Any, List, Optional, Tuple
 from utils import BASE_DIR
 
@@ -118,3 +119,40 @@ def resolve_creature(creature_id_or_alias: str) -> Tuple[Optional[Dict[str, Any]
         resolved_id = by_alias[q]
         return by_id.get(resolved_id), resolved_id
     return None, ""
+
+def load_player_character(card_id: str) -> Optional[str]:
+    cid = _normalize_key(card_id)
+    if cid.endswith(".txt"):
+        cid = os.path.splitext(cid)[0]
+    if not cid or not re.fullmatch(r"[a-z0-9_-]+", cid):
+        return None
+
+    path = os.path.join(DATA_DIR, "player_characters", f"{cid}.txt")
+    if not os.path.isfile(path):
+        return None
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read()
+    except Exception:
+        return None
+
+def resolve_player_character(user_id: str) -> Optional[str]:
+    uid = str(user_id or "").strip()
+    if not uid or not re.fullmatch(r"[0-9]+", uid):
+        return None
+
+    path = os.path.join(DATA_DIR, "player_bindings.json")
+    if not os.path.isfile(path):
+        return None
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            bindings = json.load(f)
+        if not isinstance(bindings, dict):
+            return None
+        raw = bindings.get(uid, None)
+        cid = _normalize_key(raw)
+        if not cid or not re.fullmatch(r"[a-z0-9_-]+", cid):
+            return None
+        return cid
+    except Exception:
+        return None
